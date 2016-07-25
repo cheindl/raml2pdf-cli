@@ -14,6 +14,7 @@
     "wkhtmltopdf": "0.1.5"
   },
   "devDependencies": {
+    "commander": "2.9.x",
     "eslint": "1.10.x",
     "eslint-config-defaults": "9.0.x",
     "eslint-plugin-react": "4.0.x"
