@@ -1,7 +1,7 @@
 {
   "name": "raml2pdf-cli",
   "description": "RAML to PDF documentation generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Christian Heindl",
     "email": "christian.heindl@cebesoft.com"
@@ -10,11 +10,11 @@
     "url": "https://github.com/cheindl/raml2pdf-cli/issues"
   },
   "dependencies": {
+    "commander": "2.9.x",
     "raml2html": "2.4.0",
     "wkhtmltopdf": "0.1.5"
   },
   "devDependencies": {
-    "commander": "2.9.x",
     "eslint": "1.10.x",
     "eslint-config-defaults": "9.0.x",
     "eslint-plugin-react": "4.0.x"
