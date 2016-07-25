@@ -1,0 +1,39 @@
+{
+  "name": "raml2pdf-cli",
+  "description": "RAML to PDF documentation generator",
+  "version": "1.0.0",
+  "author": {
+    "name": "Christian Heindl",
+    "email": "christian.heindl@cebesoft.com"
+  },
+  "bugs": {
+    "url": "https://github.com/cheindl/raml2pdf-cli/issues"
+  },
+  "dependencies": {
+    "raml2html": "2.4.0",
+    "wkhtmltopdf": "0.1.5"
+  },
+  "devDependencies": {
+    "eslint": "1.10.x",
+    "eslint-config-defaults": "9.0.x",
+    "eslint-plugin-react": "4.0.x"
+  },
+  "homepage": "https://github.com/cheindl/raml2pdf-cli",
+  "keywords": [
+    "RAML"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/cheindl/raml2pdf-cli.git"
+  },
+  "preferGlobal": "true",
+  "scripts": {
+    "lint": "eslint ./",
+    "lintfix": "eslint ./ --fix"
+  },
+  "bin": {
+    "raml2pdf-cli": "./bin/raml2pdf-cli"
+  }
+}

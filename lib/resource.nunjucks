@@ -1,0 +1,148 @@
+{% if (resource.methods or (resource.description and resource.parentUrl)) %}
+  <div class="panel panel-white">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <span class="parent">{{ resource.parentUrl }}</span>{{ resource.relativeUri }}
+
+        <span class="methods">
+          {% for method in resource.methods %}
+            <a href="#url{{ resource.uniqueId }}_{{ method.method }}">
+              <span class="badge badge_{{ method.method }}">{{ method.method }}{% if method.securedBy.length %} <span class="glyphicon glyphicon-lock" title="Authentication required"></span>{% endif %}</span>
+            </a>
+          {% endfor %}
+        </span>
+      </h4>
+    </div>
+    <div class="panel-body">
+      {% if resource.parentUrl %}
+        {% if resource.description %}
+          <div class="resource-description">
+            {% markdown %}{{ resource.description }}{% endmarkdown %}
+          </div>
+        {% endif %}
+      {% endif %}
+
+      <div class="list-group">
+        {% for method in resource.methods %}
+          <div class="list-group-item">
+            <div class="panel-white">
+              <div class="url-heading">
+                  <span class="badge badge_{{ method.method }}">{{ method.method }}{% if method.securedBy.length %} <span class="glyphicon glyphicon-lock" title="Authentication required"></span>{% endif %}</span>
+                  <span class="parent">{{ resource.parentUrl }}</span>{{ resource.relativeUri }}
+              </div>
+              <div class="panel-body">
+                {% if method.description %}
+                  <div class="alert alert-info">
+                    {% markdown %}{{ method.description}}{% endmarkdown %}
+                  </div>
+                {% endif %}
+                {% if method.allUriParameters.length or method.queryParameters or method.headers or method.body %}
+                  <div class="url-content">
+                    <div class="url-content-title">Request</div>
+                    <div class="url-pane" id="{{ resource.uniqueId }}_{{ method.method }}_request">
+                      {% if resource.allUriParameters.length %}
+                        <div class="heading-3">URI Parameters</div>
+                        <ul>
+                          {% for item in resource.allUriParameters %}
+                            {% include "./item.nunjucks" %}
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+
+                      {% if method.headers %}
+                        <div class="heading-3">Headers</div>
+                        <ul>
+                          {% for key, item in method.headers %}
+                            {% include "./item.nunjucks" %}
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+
+                      {% if method.queryParameters %}
+                        <div class="heading-3">Query Parameters</div>
+                        <ul>
+                          {% for key, item in method.queryParameters %}
+                            {% include "./item.nunjucks" %}
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+
+                      {% if method.body %}
+                        <div class="heading-3">Body</div>
+                        {% for key, b in method.body %}
+                          <p><strong>Type: {{key}}</strong></p>
+                          {% if b.formParameters %}
+                            <strong>Form Parameters</strong>
+                            <ul>
+                              {% for key, item in b.formParameters %}
+                                {% include "./item.nunjucks" %}
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+
+                          {% if b.schema %}
+                            <p><strong>Schema</strong>:</p>
+                            <pre><code>{{ b.schema | escape }}</code></pre>
+                          {% endif %}
+
+                          {% if b.example %}
+                              <p><strong>Example</strong>:</p>
+                              <pre><code>{{ b.example | escape }}</code></pre>
+                          {% endif %}
+                        {% endfor %}
+                      {% endif %}
+                    </div>
+                  </div>
+                {% endif %}
+                {% if method.responses %}
+                  <div class="url-content">
+                    <div class="url-content-title">Response</div>
+                    <div class="url-pane" id="{{ resource.uniqueId }}_{{ method.method }}_response">
+                      {% for key, response in method.responses %}
+                        <div class="heading-2">
+                          HTTP status code <a href="http://httpstatus.es/{{ key }}" target="_blank">{{ key }}</a>
+                        </div>
+                        {% markdown %}{{ response.description}}{% endmarkdown %}
+                        <div class="url-pane">
+                          {% if response.headers %}
+                            <div class="heading-3">Headers</div>
+                            <ul>
+                              {% for key, item in response.headers %}
+                                {% include "./item.nunjucks" %}
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+
+                          {% if response.body %}
+                            <div class="heading-3">Body</div>
+                            {% for key, b in response.body %}
+                              <p><strong>Type: {{ key }}</strong></p>
+
+                              {% if b.schema %}
+                                <p><strong>Schema</strong>:</p>
+                                <pre><code>{{ b.schema | escape }}</code></pre>
+                              {% endif %}
+
+                              {% if b.example %}
+                                <p><strong>Example</strong>:</p>
+                                <pre><code>{{ b.example | escape }}</code></pre>
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% for resource in resource.resources %}
+  {% include "./resource.nunjucks" %}
+{% endfor %}

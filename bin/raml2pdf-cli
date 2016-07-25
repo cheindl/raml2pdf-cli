@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var program = require('commander');
+var fs = require('fs');
+var pjson = require('../package.json');
+
+var wkhtmltopdf = require('wkhtmltopdf');
+
+var raml2html = require('raml2html');
+
+var config = require('../index');
+
+var raml2HtmlConfig = raml2html.getDefaultConfig(config.mainTemplate, config.templatePath);
+
+program
+  .version(pjson.version)
+  .usage('[RAML input file] [PDF output file]')
+  .parse(process.argv);
+
+
+if (program.args.length !== 2) {
+  console.error('Error: You need to specify the RAML input and PDF output file');
+  program.help();
+  process.exit(1);
+}
+
+var input = program.args[0];
+var output = program.args[1];
+
+// Start the rendering process
+raml2html.render(input, raml2HtmlConfig).then(function(result) {
+  var result = wkhtmltopdf(result, {
+    output: output
+  });
+}).catch(function(error) {
+  console.error(new Error(error));
+  process.exit(1);
+});
