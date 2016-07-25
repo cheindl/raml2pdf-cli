@@ -1,5 +1,10 @@
 # RAML to PDF
 
+[![Downloads](https://img.shields.io/npm/dm/raml2pdf-cli.svg)](https://www.npmjs.com/package/raml2pdf-cli)
+[![NPM version](http://img.shields.io/npm/v/raml2pdf-cli.svg)](https://www.npmjs.org/package/raml2pdf-cli)
+[![js-standard-style](https://img.shields.io/badge/code%20style-airbnb-blue.svg?style=flat)](https://github.com/airbnb/javascript)
+
+
 A simple RAML to PDF documentation generator, written for Node.js. It a command line version of
 [raml2pdf](https://github.com/our-bts/raml2pdf) and was inspired by [raml2html](https://github.com/raml2html/raml2html) and [raml2md](https://github.com/raml2html/raml2md).
 
