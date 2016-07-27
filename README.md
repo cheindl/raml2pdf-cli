@@ -17,8 +17,10 @@ npm i -g raml2pdf-cli
 ## Usage
 
 ```
+raml2pdf-cli input.raml output.pdf
+raml2pdf-cli -e /path/to/wkhtmltopdf input.raml output.pdf
 raml2pdf-cli --help
-raml2pdf-cli example.raml example.pdf
+raml2pdf-cli --version
 ```
 
 ## Example output

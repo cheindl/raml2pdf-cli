@@ -16,7 +16,8 @@ var raml2HtmlConfig = raml2html.getDefaultConfig(config.mainTemplate, config.tem
 
 program
   .version(pjson.version)
-  .usage('[RAML input file] [PDF output file]')
+  .usage('[options] [RAML input file] [PDF output file]')
+  .option('-e, --wkhtmltopdf [wktohtmlpdf]', 'Path to wkhtmltopdf executable (default: wkhtmltopdf)')
   .parse(process.argv);
 
 
@@ -24,6 +25,10 @@ if (program.args.length !== 2) {
   console.error('Error: You need to specify the RAML input and PDF output file');
   program.help();
   process.exit(1);
+}
+
+if(program.wkhtmltopdf) {
+  wkhtmltopdf.command = program.wkhtmltopdf;
 }
 
 var input = program.args[0];

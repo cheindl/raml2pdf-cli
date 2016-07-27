@@ -1,7 +1,7 @@
 {
   "name": "raml2pdf-cli",
   "description": "RAML to PDF documentation generator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": {
     "name": "Christian Heindl",
     "email": "christian.heindl@cebesoft.com"
